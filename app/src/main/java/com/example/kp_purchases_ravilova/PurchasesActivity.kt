@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.WeekDay
+import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.CalendarView
 import com.kizitonwose.calendar.view.MonthDayBinder
@@ -65,16 +66,14 @@ class PurchasesActivity : AppCompatActivity() {
 
     // Функция настройки календаря (как в Example 5)
     private fun setupCalendar() {
-        // Устанавливаем диапазон: 50 месяцев назад и вперед
+        val currentDate = LocalDate.now()
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(50)
-        val endMonth = currentMonth.plusMonths(50)
-        val firstDayOfWeek = firstDayOfWeekFromLocale() // Первый день недели
-
-        // Настраиваем календарь
-        val startDate = currentMonth.minusMonths(50).atDay(1) // Первый день начального месяца
-        val endDate = currentMonth.plusMonths(50).atEndOfMonth() // Последний день конечного месяца
+        val startDate = currentMonth.minusMonths(100).atStartOfMonth() // Adjust as needed
+        val endDate = currentMonth.plusMonths(100).atEndOfMonth() // Adjust as needed
+        val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
         calendarView.setup(startDate, endDate, firstDayOfWeek)
+        calendarView.scrollToWeek(currentDate)
+
 
         // Устанавливаем, как выглядят дни
         calendarView.dayBinder = object : WeekDayBinder<DayViewContainer> {
@@ -112,6 +111,7 @@ class PurchasesActivity : AppCompatActivity() {
                 }
             }
         }
+
 
     }
 
