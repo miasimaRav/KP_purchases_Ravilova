@@ -3,86 +3,156 @@ package com.example.kp_purchases_ravilova
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.WeekDay
+import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.CalendarView
 import com.kizitonwose.calendar.view.MonthDayBinder
+import com.kizitonwose.calendar.view.ViewContainer
 import com.kizitonwose.calendar.view.WeekCalendarView
-import java.time.DayOfWeek
+import com.kizitonwose.calendar.view.WeekDayBinder
 import java.time.LocalDate
 import java.time.YearMonth
-import java.time.temporal.WeekFields
-import java.util.Locale
-
 
 class PurchasesActivity : AppCompatActivity() {
 
-    private lateinit var calendarView: CalendarView
-    private lateinit var purchasesTv: TextView
-
-    private var selectedDate: LocalDate = LocalDate.now()
-    private val eventsMap = mutableMapOf<LocalDate, List<CalendarEvent>>()
+    // Объявляем переменные
+    private lateinit var calendarView: WeekCalendarView // Календарь
+    private lateinit var purchaseListLayout: LinearLayout // Контейнер для чекбоксов покупок
+    private var selectedDate: LocalDate? = LocalDate.now() // Выбранная дата
+    private val purchasesMap = mutableMapOf<LocalDate, List<Purchase>>() // Словарь: дата -> покупки
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_purchases)
 
-        calendarView = findViewById(R.id.weekCalendar)
-        purchasesTv = findViewById(R.id.purchasesTv)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        // Находим элементы интерфейса
+        calendarView = findViewById(R.id.weekCalendar) // Календарь
+        purchaseListLayout = findViewById(R.id.purchaseList) // Контейнер для покупок
+        val fab: FloatingActionButton = findViewById(R.id.fab) // Кнопка добавления
 
 
+        // Тестовые покупки (потом заменим на данные из базы)
         val today = LocalDate.now()
-        eventsMap[today] = listOf(
-            CalendarEvent("1", "Молоко 50 ₽", today),
-            CalendarEvent("2", "Хлеб 30 ₽", today)
+        purchasesMap[today] = listOf(
+            Purchase("1", "Молоко", 50.0, today),
+            Purchase("2", "Хлеб", 30.0, today)
         )
-        eventsMap[today.plusDays(2)] = listOf(
-            CalendarEvent("3", "Масло 120 ₽", today.plusDays(2))
+        purchasesMap[today.plusDays(2)] = listOf(
+            Purchase("3", "Масло", 120.0, today.plusDays(2))
         )
 
+        // Настраиваем календарь
         setupCalendar()
 
+        // Показываем покупки для начальной даты
+        showPurchasesForDate(selectedDate)
+
+        // При клике на FAB открываем экран добавления покупки
         fab.setOnClickListener {
-            startActivity(Intent(this, AddPurchaseActivity::class.java))
+            val intent = Intent(this, AddPurchaseActivity::class.java)
+            startActivity(intent)
         }
 
-
+        // Устанавливаем текущий экран в навигации
         attachCommonBottomNav(findViewById(R.id.bottom_navigation), R.id.item_2)
     }
 
+    // Функция настройки календаря (как в Example 5)
     private fun setupCalendar() {
+        // Устанавливаем диапазон: 50 месяцев назад и вперед
         val currentMonth = YearMonth.now()
-        val firstMonth = currentMonth.minusMonths(50)
-        val lastMonth = currentMonth.plusMonths(50)
-        val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
+        val startMonth = currentMonth.minusMonths(50)
+        val endMonth = currentMonth.plusMonths(50)
+        val firstDayOfWeek = firstDayOfWeekFromLocale() // Первый день недели (например, понедельник)
 
-        calendarView.setup(firstMonth, lastMonth, firstDayOfWeek)
-        calendarView.scrollToMonth(currentMonth)
+        // Настраиваем календарь
+        val startDate = currentMonth.minusMonths(50).atDay(1) // Первый день начального месяца
+        val endDate = currentMonth.plusMonths(50).atEndOfMonth() // Последний день конечного месяца
+        calendarView.setup(startDate, endDate, firstDayOfWeek)
 
-        calendarView.dayBinder = object : MonthDayBinder<CalendarDayViewHolder, CalendarDay> {
-            override fun create(view: View): CalendarDayViewHolder =
-                CalendarDayViewHolder(view) { date ->
-                    selectedDate = date
-                    calendarView.notifyDateChanged(date)
-                    showPurchasesFor(date)
+        // Устанавливаем, как выглядят дни
+        calendarView.dayBinder = object : WeekDayBinder<DayViewContainer> {
+            // Создаем контейнер для дня
+            override fun create(view: View) = DayViewContainer(view)
+
+            // Настраиваем вид дня
+            override fun bind(container: DayViewContainer, weekDay: WeekDay) {
+                val day = weekDay.date // Дата дня
+                container.textView.text = day.dayOfMonth.toString() // Устанавливаем номер дня
+
+                // Стили, как в Example 5: выбранный, сегодняшний или обычный день
+                if (day == selectedDate) {
+                    // Выбранный день: прямоугольник, белый текст
+                    container.textView.setBackgroundResource(R.drawable.bg_selected)
+                    container.textView.setTextColor(getColor(R.color.white))
+                } else if (day == LocalDate.now()) {
+                    // Сегодня: круг, белый текст
+                    container.textView.setBackgroundResource(R.drawable.bg_today)
+                    container.textView.setTextColor(getColor(R.color.white))
+                } else {
+                    // Обычный день: без фона, черный текст
+                    container.textView.background = null
+                    container.textView.setTextColor(getColor(R.color.black))
                 }
 
-            override fun bind(container: CalendarDayViewHolder, data: CalendarDay) {
-                container.bind(data, eventsMap[data.date].orEmpty())
+                // При клике выбираем дату и обновляем покупки
+                container.view.setOnClickListener {
+                    val oldDate = selectedDate
+                    selectedDate = day
+                    // Обновляем календарь
+                    if (oldDate != null) calendarView.notifyDateChanged(oldDate)
+                    calendarView.notifyDateChanged(day)
+                    // Показываем покупки для выбранной даты
+                    showPurchasesForDate(day)
+                }
             }
         }
-
-        showPurchasesFor(selectedDate)
     }
 
-    private fun showPurchasesFor(date: LocalDate) {
-        val list = eventsMap[date].orEmpty()
-        purchasesTv.text = if (list.isEmpty()) "Нет покупок" else list.joinToString("\n") { it.title }
+    // Функция для показа покупок за выбранную дату
+    private fun showPurchasesForDate(date: LocalDate?) {
+        // Очищаем старые чекбоксы
+        purchaseListLayout.removeAllViews()
+
+        // Получаем покупки за дату (или пустой список, если нет)
+        val purchases = purchasesMap[date].orEmpty()
+
+        // Если покупок нет, добавляем текст "Нет покупок"
+        if (purchases.isEmpty()) {
+            val textView = TextView(this).apply {
+                text = "Нет покупок"
+                textSize = 16f
+                setPadding(16, 16, 16, 16)
+            }
+            purchaseListLayout.addView(textView)
+            return
+        }
+
+        // Для каждой покупки создаем чекбокс
+        for (purchase in purchases) {
+            val checkBox = MaterialCheckBox(this).apply {
+                // Устанавливаем текст: "Название: сумма ₽"
+                text = "${purchase.name}: ${purchase.amount} ₽"
+                // Устанавливаем состояние чекбокса
+                isChecked = purchase.isChecked
+                // При клике на чекбокс обновляем состояние покупки
+                setOnCheckedChangeListener { _, isChecked ->
+                    purchase.isChecked = isChecked
+                }
+                // Настраиваем внешний вид
+                textSize = 16f
+                setPadding(16, 8, 16, 8)
+            }
+            // Добавляем чекбокс в LinearLayout
+            purchaseListLayout.addView(checkBox)
+        }
     }
 }
