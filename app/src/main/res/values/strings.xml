@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">KP_purchases_Ravilova</string>
+    <string name="app_name">Учёт покупок</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_fio">ФИО</string>
+    <string name="hint_confirm">Повторите пароль</string>
+    <string name="btn_sign_in">Войти</string>
+    <string name="btn_sign_up">Зарегистрироваться</string>
+    <string name="link_sign_up">Создать аккаунт</string>
+    <string name="balance">Баланс: %1$s ₽</string>
+    <string name="spent">Потрачено: %1$s ₽</string>
+    <string name="title_frequent">Частые покупки</string>
+    <string name="title_add">Добавить покупку</string>
+    <string name="hint_product">Название продукта</string>
+    <string name="hint_category">Категория</string>
+    <string name="hint_quantity">Кол-во</string>
+    <string name="hint_price">Цена, ₽</string>
+    <string name="hint_shop">Магазин</string>
+    <string name="hint_date">Дата</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="title_profile">Профиль</string>
+    <string name="btn_logout">Выйти</string>
+    <string name="fab_add_purchase">Добавить покупку</string>
 </resources>

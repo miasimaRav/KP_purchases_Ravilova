@@ -2,111 +2,61 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PurchasesActivity">
-
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-        <!--simple text view to show the selected date by the user-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <com.kizitonwose.calendar.view.CalendarView
-            android:id="@+id/calendarView"
+            android:id="@+id/weekCalendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
             android:clipToPadding="false"
-            android:paddingVertical="8dp" />
+            android:paddingVertical="4dp"
+            app:cv_dayViewResource="@layout/calendar_day"/>
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|center_horizontal"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="12dp">
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkBox"
+            <TextView
+                android:id="@+id/purchasesTv"
+                android:text="Покупки за день"
+                android:textSize="14sp"
+                android:padding="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkBox2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/parentCb"
-                style="@style/Widget.Material3.CompoundButton.CheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Выбрать всё"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/child1"
-                android:layout_marginStart="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Молоко"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/child2"
-                android:layout_marginStart="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Хлеб"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/child3"
-                android:layout_marginStart="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Масло"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkBox6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkBox7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkBox8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkBox9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-        </LinearLayout>
-
-
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:layout_marginBottom="20dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/title_add"
         android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="@color/primary"
+        app:layout_anchor="@id/bottom_navigation"
+        app:layout_anchorGravity="top|end"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="@id/bottom_navigation"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
         app:layout_constraintVertical_bias="1.0" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

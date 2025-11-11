@@ -3,4 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#3d4449</color>
+    <color name="primary">#8c7589</color>
+    <color name="primary_dark">#483d49</color>
+    <color name="secondary">#6b816d</color>
+    <color name="background">#FFFBFDF8</color>
+    <color name="surface">#FFFBFDF8</color>
+    <color name="error">#FFBA1A1A</color>
+    <color name="text_primary">#FF1A1C1A</color>
+    <color name="text_secondary">#FF434643</color>
+    <color name="divider">#FFDDE5DB</color>
+    <color name="today">#FF4CAF50</color>
 </resources>
