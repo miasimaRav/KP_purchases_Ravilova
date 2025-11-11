@@ -35,9 +35,16 @@
             android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/limitBtn"
+            android:text="Установить лимит"
+            android:layout_marginTop="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/primary"/>
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutBtn"
             android:text="@string/btn_logout"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/primary"/>
@@ -52,13 +59,13 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
         android:foregroundGravity="center"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/bottom_menu"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

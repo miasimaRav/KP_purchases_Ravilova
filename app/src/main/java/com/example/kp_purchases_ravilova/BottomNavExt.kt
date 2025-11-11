@@ -22,7 +22,7 @@ fun AppCompatActivity.attachCommonBottomNav(
             R.id.item_2 -> startActivity(Intent(this, PurchasesActivity::class.java))
             R.id.item_3 -> startActivity(Intent(this, ProfileActivity::class.java))
         }
-        finish()   // убираем текущую активность из стека
+        finish()
         true
     }
 }

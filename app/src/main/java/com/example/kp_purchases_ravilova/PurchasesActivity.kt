@@ -71,7 +71,7 @@ class PurchasesActivity : AppCompatActivity() {
         val currentMonth = YearMonth.now()
         val startMonth = currentMonth.minusMonths(50)
         val endMonth = currentMonth.plusMonths(50)
-        val firstDayOfWeek = firstDayOfWeekFromLocale() // Первый день недели (например, понедельник)
+        val firstDayOfWeek = firstDayOfWeekFromLocale() // Первый день недели
 
         // Настраиваем календарь
         val startDate = currentMonth.minusMonths(50).atDay(1) // Первый день начального месяца
@@ -88,13 +88,12 @@ class PurchasesActivity : AppCompatActivity() {
                 val day = weekDay.date // Дата дня
                 container.textView.text = day.dayOfMonth.toString() // Устанавливаем номер дня
 
-                // Стили, как в Example 5: выбранный, сегодняшний или обычный день
                 if (day == selectedDate) {
-                    // Выбранный день: прямоугольник, белый текст
+                    // Выбранный день
                     container.textView.setBackgroundResource(R.drawable.bg_selected)
                     container.textView.setTextColor(getColor(R.color.white))
                 } else if (day == LocalDate.now()) {
-                    // Сегодня: круг, белый текст
+                    // Сегодня
                     container.textView.setBackgroundResource(R.drawable.bg_today)
                     container.textView.setTextColor(getColor(R.color.white))
                 } else {
@@ -115,6 +114,7 @@ class PurchasesActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     // Функция для показа покупок за выбранную дату

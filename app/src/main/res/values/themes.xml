@@ -3,6 +3,16 @@
     <style name="Base.Theme.KP_purchases_Ravilova" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+
+    </style>
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorSurfaceContainer">@color/gray</item>
+        <item name="colorSecondaryContainer">@color/primary</item>
     </style>
 
     <style name="Theme.KP_purchases_Ravilova" parent="Base.Theme.KP_purchases_Ravilova" />
