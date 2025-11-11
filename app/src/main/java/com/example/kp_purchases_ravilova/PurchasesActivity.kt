@@ -22,8 +22,6 @@ import java.time.LocalDate
 import java.time.YearMonth
 
 class PurchasesActivity : AppCompatActivity() {
-
-    // Объявляем переменные
     private lateinit var calendarView: WeekCalendarView // Календарь
     private lateinit var purchaseListLayout: LinearLayout // Контейнер для чекбоксов покупок
     private var selectedDate: LocalDate? = LocalDate.now() // Выбранная дата
