@@ -185,9 +185,10 @@
         android:contentDescription="@string/title_add"
         android:src="@android:drawable/ic_menu_add"
         android:tint="@color/primary_light"
-        app:backgroundTint="@color/primary"
+        app:backgroundTint="@color/primary_dark"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/primary_light"/>
 
     <!-- Прописать единый bottomnav для всех страниц, чтобы не прописывать в каждом xml -->
     <!-- Изменить выбранной иконки, добавить непустые подписи к ним -->

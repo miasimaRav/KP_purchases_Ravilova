@@ -22,4 +22,5 @@
     <string name="hint_profile">Профиль</string>
     <string name="btn_logout">Выйти</string>
     <string name="fab_add_purchase">Добавить покупку</string>
+    <string name="setLimitText">Установить лимит</string>
 </resources>

@@ -50,7 +50,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.kizitonwose.calendar:view:2.9.0") // для Android-проектов, использующих традиционные View
     implementation("com.google.android.material:material:1.12.0")
-    //implementation("com.github.PhilJay:MPAndroidChart:v3.1.0") // Для графиков
+    //implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // implementation("org.jetbrains.kotlinx:kandy-lets-plot:${kandy_version}") Для графиков
     implementation("com.android.tools:desugar_jdk_libs:2.1.5")
 
 }
