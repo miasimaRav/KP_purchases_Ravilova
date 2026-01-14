@@ -26,6 +26,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true  //  Генерирует ActivitySignUpBinding (ViewBinding)
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -34,6 +37,7 @@ android {
         jvmTarget = "11"
     }
 }
+
 
 dependencies {
 
@@ -50,8 +54,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.kizitonwose.calendar:view:2.9.0") // для Android-проектов, использующих традиционные View
     implementation("com.google.android.material:material:1.12.0")
-    //implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    // implementation("org.jetbrains.kotlinx:kandy-lets-plot:${kandy_version}") Для графиков
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.android.tools:desugar_jdk_libs:2.1.5")
+
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
 }
